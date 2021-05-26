@@ -1,0 +1,112 @@
+' https://plantuml.com/stdlib
+
+' Include C4 Libraries
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+
+' Include specific icons
+!include <tupadr3/devicons/database>
+!include <logos/kafka>
+!include assets/hf_logo.puml
+!include assets/fhir_logo.puml
+
+
+' Common Styling
+' Set background of diagram
+skinparam backgroundColor lavender
+skinparam HyperlinkColor $NODE_FONT_COLOR
+skinparam HyperlinkUnderline false
+
+
+' Add a legend
+LAYOUT_WITH_LEGEND()
+
+
+
+' Change the color of relationships
+' Required: alias1, alias2, label
+' Optional: techn, col
+!unquoted procedure Rel($alias1, $alias2, $label, $techn="", $col=$ARROW_COLOR)
+    !if ($techn=="")
+        $alias1 -[$col]->> $alias2 : <color:$col>**$label**
+    !endif
+    !if ($techn!="")
+        $alias1 -[$col]->> $alias2 : <color:$col>**$label**\n//<color:$col><size:$TECHN_FONT_SIZE>[$techn]</size>//
+    !endif
+!endprocedure
+
+
+' Create Flow container (hexagons)
+' Required: alias, label
+' Optional: link
+!unquoted procedure Flow($alias, $label, $link)
+    skinparam shadowing false
+    skinparam hexagon {
+        BackgroundColor $SYSTEM_BG_COLOR
+        BorderColor $SYSTEM_BORDER_COLOR
+        FontColor $ELEMENT_FONT_COLOR
+    }
+    hexagon "\n\n==$label\n\n" as $alias [[$link]]
+!endprocedure
+
+
+' Create Fhir Server Container (db)
+' Required: alias
+' Optional: label, techn, descr
+!unquoted procedure FhirDb($alias, $label="Fhir Server", $techn="Smile CDR", $descr="Stores Fhir resources")
+    ContainerDb($alias, $label, $techn, $descr, fhir_logo, , "https://testplatformhf.smcpartners.com/smile/fhirweb/")
+!endprocedure
+
+
+' Create Fhir Server Container (db)
+' Required: alias
+' Optional: label
+!unquoted procedure HealthfirstDb($alias, $label="Healthfirst Server")
+    SystemDb_Ext($alias, $label, , hf_logo)
+!endprocedure
+
+
+' Create Kafka topic Container (queue)
+' Required: alias, descr
+!unquoted procedure Topic($alias, $descr)
+    queue "<$kafka>\n$descr" $toStereos("system","") as $alias
+!endprocedure
+
+
+' Add BundleEntry
+!$rowSep = "----"
+!$bundleTable = ""
+
+' Required: label
+' Optional: link
+!unquoted function BundleEntry($label, $link="")
+
+    ' Add the first row separator
+    !if ($bundleTable == "")
+        !$bundleTable = $rowSep
+    !endif
+
+    ' Add the label
+    !if ($link == "")
+        !$bundleTable = $bundleTable + '\n' + $label + '\n' + $rowSep
+    !endif
+    !if ($link != "")
+        !$bundleTable = $bundleTable + '\n[[' + $link + ' ' + $label + ']]\n' + $rowSep
+    !endif
+    !return ""
+!endfunction
+
+
+' Create Bundle
+' Required: alias
+' Optional: label, type, link
+!unquoted procedure Bundle($alias, $label="Bundle", $type="Transaction", $link="")
+    Node($alias, $label, $type, $bundleTable, , , $link)
+    ' Reset bundleTable
+    !$bundleTable = ""
+!endprocedure
+
+
