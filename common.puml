@@ -13,6 +13,9 @@
 !include https://raw.githubusercontent.com/jordanpolun/PlantUML-Common/main/assets/hf_logo.puml
 !include https://raw.githubusercontent.com/jordanpolun/PlantUML-Common/main/assets/fhir_logo.puml
 
+' Include diagram map for linking diagrams by URL
+!include https://raw.githubusercontent.com/jordanpolun/PlantUML-Common/main/diagram_map.puml
+
 
 ' Common Styling
 ' Set background of diagram
