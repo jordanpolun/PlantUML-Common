@@ -10,8 +10,8 @@
 ' Include specific icons
 !include <tupadr3/devicons/database>
 !include <logos/kafka>
-!include assets/hf_logo.puml
-!include assets/fhir_logo.puml
+!include https://raw.githubusercontent.com/jordanpolun/PlantUML-Common/main/assets/hf_logo.puml
+!include https://raw.githubusercontent.com/jordanpolun/PlantUML-Common/main/assets/fhir_logo.puml
 
 
 ' Common Styling
