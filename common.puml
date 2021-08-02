@@ -59,7 +59,7 @@ LAYOUT_WITH_LEGEND()
 ' Create Fhir Server Container (db)
 ' Required: alias
 ' Optional: label, techn, descr
-!unquoted procedure FhirDb($alias, $label="Fhir Server", $techn="Smile CDR", $descr="Stores Fhir resources")
+!unquoted procedure FhirDb($alias, $label="FHIR Server", $techn="Smile CDR", $descr="Stores FHIR resources")
     ContainerDb($alias, $label, $techn, $descr, fhir_logo, , "https://platformdev.smcpartners.com/healthfirst/fhirweb/signin")
 !endprocedure
 
