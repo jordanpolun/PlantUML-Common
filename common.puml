@@ -45,7 +45,7 @@ LAYOUT_WITH_LEGEND()
 ' Create Flow container (hexagons)
 ' Required: alias, label
 ' Optional: link
-!unquoted procedure Flow($alias, $label, $link)
+!unquoted procedure Flow($alias, $label, $link="")
     skinparam shadowing false
     skinparam hexagon {
         BackgroundColor $SYSTEM_BG_COLOR
