@@ -52,7 +52,13 @@ LAYOUT_WITH_LEGEND()
         BorderColor $SYSTEM_BORDER_COLOR
         FontColor $ELEMENT_FONT_COLOR
     }
-    hexagon "\n\n==$label\n\n" as $alias [[$link]]
+    !if ($link == "")
+        hexagon "\n\n==$label\n\n" as $alias
+    !endif
+    
+    !if ($link != "")
+        hexagon "\n\n==$label\n\n" as $alias [[$link]]
+    !endif
 !endprocedure
 
 
